@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <div id="app">
+      <input type="text" v-model="input">
+      <button @click="agregarAlumno">Agregar Alumno</button>
+      <h2>{{Nombre}}</h2>
+      <h3>{{Materia}}</h3>
+      <h3>{{Profesor}}</h3>
+      <h3>{{Tema}}</h3>
+      <!--AQUI USE LOS FOR Y LAS CONDICIONALES-->
+      <ul>
+         <li v-for="a of Alumnos">
+             {{a}}
+         </li>
+      </ul>
+      <ul>
+         <li v-for="hora of Horas">
+             {{hora.Turno}} - {{hora.Dia}}
+             <span v-if="hora.Dia === 'Lunes'">-->El Primer dia de la semana</span>
+             <span v-if="hora.Dia === 'Martes'">-->El Segundo dia de la semana</span>
+             <span v-if="hora.Dia === 'Jueves'">-->El dia de los foraneos</span>
+         </li>
+      </ul>
+   </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="logic.js"></script>
+</html>
