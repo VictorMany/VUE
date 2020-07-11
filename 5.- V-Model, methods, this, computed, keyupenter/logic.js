@@ -3,6 +3,22 @@ const primera = new Vue({
    data: {
       //Propiedad vinculada al modelo 
       input: '',
+      Total: 0,
+      Personas: [
+         {
+            Cantidad: 1,
+            Nombre: 'Lunes'
+         },
+         {
+            Cantidad: 2,
+            Nombre: 'Lunes'
+         },
+         {
+            Cantidad: 4,
+            Nombre: 'Lunes'
+         }
+      ],
+      nuevaPersona: '',
       //PROPS
       Nombre: 'Victor Manuel Velazquez Fuentes',
       Materia: 'Matematicas',
@@ -29,6 +45,23 @@ const primera = new Vue({
    methods: {
       agregarAlumno(){
          this.Alumnos.push(this.input)
+         this.input= ''
+      },
+      agregarpersona () {
+         this.Personas.push({
+           Cantidad: 0, Nombre: this.nuevaPersona
+         });
+         this.nuevaPersona = ''
+       }
+      
+   },
+   computed: {
+      sumarPersonas(){
+         this.Total=0;
+         for(p of this.Personas){
+            this.Total += p.Cantidad;
+         }
+         return this.Total;
       }
    }
 })

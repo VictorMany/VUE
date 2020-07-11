@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Vue.js clases bindeables</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+   <div id="app" class="container mt-5">
+      <div :class="['p-3', 'text-white', color]" >
+         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint voluptatibus porro vero laudantium quod, est et. Nostrum dolore libero ipsum voluptates quasi unde architecto, quisquam soluta iste quam natus dolor.</p>
+      </div>
+
+      <input type="text" class="form-control my-3" v-model="color">
+
+      <div class="p-3 text-white" :class="{'bg-danger':fondo, 'bg-success':!fondo}">
+         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint voluptatibus porro vero laudantium quod, est et. Nostrum dolore libero ipsum voluptates quasi unde architecto, quisquam soluta iste quam natus dolor.</p>
+      </div>
+      <button class="btn btn-primary" @click="fondo=!fondo">Cambiar color</button>
+   </div>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="logic.js"></script>
+</body>
+</html>

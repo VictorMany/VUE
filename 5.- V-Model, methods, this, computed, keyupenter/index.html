@@ -7,7 +7,7 @@
 </head>
 <body>
    <div id="app">
-      <input type="text" v-model="input">
+      <input type="text" @keyup.enter="agregarAlumno" v-model="input">
       <button @click="agregarAlumno">Agregar Alumno</button>
       <h2>{{Nombre}}</h2>
       <h3>{{Materia}}</h3>
@@ -27,6 +27,18 @@
              <span v-if="hora.Dia === 'Jueves'">-->El dia de los foraneos</span>
          </li>
       </ul>
+
+   <hr></hr>
+  
+      <input type="text" v-model="nuevaPersona">
+      <button @click="agregarpersona">Agregar Nueva Persona</button>
+      <ul>
+         <li v-for="p of Personas">
+            <input type="number" v-model.number="p.Cantidad"> - {{p.Nombre}}
+            <button @click="p.Cantidad++">+</button>
+         </li>
+      </ul>
+      <h4>Total: {{sumarPersonas}}</h4>
    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
