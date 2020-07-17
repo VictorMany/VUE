@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Vue.js clases bindeables</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="https://unpkg.com/vuex@3.5.1/dist/vuex.js"></script>
+
+</head>
+<body>
+    <div id="app">
+      <titulo></titulo>
+    </div>
+
+    <script>
+         Vue.component('titulo', {
+            template: /*html*/
+            `
+            <div class="p-5">
+                  <h1> {{numero}}</h1>
+                  <hijo></hijo>
+               </div>
+            `,
+            computed: {
+               ...Vuex.mapState(['numero'])
+            },
+            methods: {
+               ...Vuex.mapMutations(['nuevoNum'])
+            }
+
+         })
+
+         Vue.component('hijo', {
+            template: /*html*/
+            `
+            <div>
+               <button @click="aumentar">+</button>
+               <button @click="disminuir">-</button>
+               <button @click="obtenerCursos">Obtener Cursos</button>
+               <ul v-for="c of cursos">
+                 <li>
+                    {{c.nombre}}
+                 </li>
+               </ul>
+            </div>
+            `,
+            computed: {
+               ...Vuex.mapState(['numero', 'cursos'])
+            },
+            methods: {
+               ...Vuex.mapMutations(['aumentar', 'disminuir']),
+               ...Vuex.mapActions(['obtenerCursos'])
+            }
+         })
+          
+         const store = new Vuex.Store({
+            state: {
+               numero: 10,
+               cursos: []
+            },
+            mutations: {
+               aumentar(state){
+                   state.numero++
+               },
+               disminuir(){
+                  store.state.numero--
+               },
+               llenarCursos(state, cursosAccion){
+                  state.cursos = cursosAccion
+               }
+            },
+            actions:{
+              obtenerCursos: async function ({commit}) {
+                 //accion
+                 const data = await fetch('api.json');
+                 //dato
+                 const cursos = await data.json();
+                 //mutation
+                 commit('llenarCursos', cursos)
+
+              }
+            }
+         })
+         new Vue({
+            el: '#app',
+            store: store
+         })
+
+    </script>
+</body>
+</html>

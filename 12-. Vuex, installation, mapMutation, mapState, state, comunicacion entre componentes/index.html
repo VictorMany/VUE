@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Vue.js clases bindeables</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="https://unpkg.com/vuex@3.5.1/dist/vuex.js"></script>
+
+</head>
+<body>
+    <div id="app">
+      <titulo></titulo>
+    </div>
+
+    <script>
+         Vue.component('titulo', {
+            template: /*html*/
+            `
+            <div class="p-5">
+                  <input v-model="numero" @keyup="nuevoNum">
+
+                  <hijo></hijo>
+               </div>
+            `,
+            computed: {
+               ...Vuex.mapState(['numero'])
+            },
+            methods: {
+               ...Vuex.mapMutations(['nuevoNum'])
+            }
+
+         })
+
+         Vue.component('hijo', {
+            template: /*html*/
+            `
+            <div>
+               <button @click="aumentar">+</button>
+               <button @click="disminuir">-</button>
+            </div>
+            `,
+            computed: {
+               ...Vuex.mapState(['numero'])
+            },
+            methods: {
+               ...Vuex.mapMutations(['aumentar', 'disminuir'])
+            }
+         })
+          
+         const store = new Vuex.Store({
+            state: {
+               numero: 10
+            },
+            mutations: {
+               aumentar(state){
+                   state.numero++
+               },
+               disminuir(){
+                  store.state.numero--
+               }
+            }
+              
+            
+         })
+
+         new Vue({
+            el: '#app',
+            store: store
+         })
+
+    </script>
+</body>
+</html>
